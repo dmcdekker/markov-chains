@@ -43,14 +43,18 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-    
+    # instantiating empty dict
     chains = {}
     
+    # separate words by spaces
     words = text_string.split()
+    # iterate over words
     for i in range(len(words) - 2):
+        # bind words into pairs
         word_pairs = (words[i], words[i + 1])
+        # turn pairs into tuples
         chain_key = tuple(word_pairs)
-        #looks into chains at chain_key, and adds 3rd word to value
+        # looks at chain_key, and adds 3rd word to value
         chains[chain_key] = chains.get(chain_key, []) + [words[i + 2]]
    
     return chains   
@@ -62,15 +66,21 @@ def make_text(chains):
 
     words = []
 
+    # generating random word from keys
     random_key = random.choice(chains.keys()) 
+    # adding randomly selected tuple from keys and adding to words list
     words.append(random_key[0])
     words.append(random_key[1])
 
+    # loop to look 
     while True:
+        # bind last two elements of words list to tuple
         last_two = tuple(words[-2:])
+        # check if tuple exists in chains (return list of none if not)
         value_of_tup = chains.get(last_two, [None]) 
+        # generate random word from tuple list
         random_list_word = random.choice(value_of_tup)
-        #print value_of_tup
+        # break loop if list is none
         if random_list_word == None:
             break
 
