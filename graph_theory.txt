@@ -1,0 +1,11 @@
+In the most common sense of the term,[1] a graph is an ordered pair G = (V, E) comprising a set V of vertices or nodes or points together with a set E of edges or arcs or lines, which are 2-element subsets of V (i.e. an edge is associated with two vertices, and that association takes the form of the unordered pair comprising those two vertices). To avoid ambiguity, this type of graph may be described precisely as undirected and simple.
+
+Other senses of graph stem from different conceptions of the edge set. In one more generalized notion,[2] V is a set together with a relation of incidence that associates with each edge two vertices. In another generalized notion, E is a multiset of unordered pairs of (not necessarily distinct) vertices. Many authors call this type of object a multigraph or pseudograph.
+
+All of these variants and others are described more fully below.
+
+The vertices belonging to an edge are called the ends or end vertices of the edge. A vertex may exist in a graph and not belong to an edge.
+
+V and E are usually taken to be finite, and many of the well-known results are not true (or are rather different) for infinite graphs because many of the arguments fail in the infinite case. The order of a graph is |V|, its number of vertices. The size of a graph is |E|, its number of edges. The degree or valency of a vertex is the number of edges that connect to it, where an edge that connects a vertex to itself (a loop) is counted twice.
+
+For an edge {x, y}, graph theorists usually use the somewhat shorter notation xy
