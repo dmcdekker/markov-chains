@@ -19,7 +19,7 @@ def open_and_read_file(file_path):
 open_and_read_file("green-eggs.txt")    
 
 
-def make_chains(text_string):
+def make_chains(text_string, number_of_words):
     """Take input text as string; return dictionary of Markov chains.
 
     A chain will be a key that consists of a tuple of (word1, word2)
@@ -49,54 +49,57 @@ def make_chains(text_string):
     # separate words by spaces
     words = text_string.split()
     # iterate over words
-    for i in range(len(words) - 2):
-        # bind words into pairs
-        word_pairs = (words[i], words[i + 1])
-        # turn pairs into tuples
-        chain_key = tuple(word_pairs)
-        # looks at chain_key, and adds 3rd word to value
-        chains[chain_key] = chains.get(chain_key, []) + [words[i + 2]]
-   
+  
+    for i in range(len(words) - number_of_words):
+        # bind words into groups
+        word_group = (words[i:number_of_words+i])
+        # turn groups into tuples
+        chain_key = tuple(word_group)
+        # looks at chain_key, if returns list concatenate with existing list or dump into new list (nth word to value)
+        chains[chain_key] = chains.get(chain_key, []) + [words[number_of_words + i]]
+    
+
     return chains   
     
-import random
+# import random
 
-def make_text(chains):
+def make_text(chains, number_of_words):
     """Return text from chains."""
 
     words = []
 
     # generating random word from keys
-    random_key = random.choice(chains.keys()) 
+    random_key = choice(chains.keys()) 
     # adding randomly selected tuple from keys and adding to words list
-    words.append(random_key[0])
-    words.append(random_key[1])
+    words.extend(random_key[0:number_of_words])
 
     # loop to look 
+    print chains.items()
     while True:
-        # bind last two elements of words list to tuple
-        last_two = tuple(words[-2:])
+        # bind last nth elements of words list to tuple
+        last_n_words = tuple(words[-number_of_words:])
         # check if tuple exists in chains (return list of none if not)
-        value_of_tup = chains.get(last_two, [None]) 
+        value_of_tup = chains.get(last_n_words, [None])
         # generate random word from tuple list
-        random_list_word = random.choice(value_of_tup)
+        random_list_word = choice(value_of_tup)
         # break loop if list is none
         if random_list_word == None:
             break
 
         words.append(random_list_word)
-
+    print words     
     return " ".join(words)
 
 input_path = sys.argv[1]
+number_of_words = int(sys.argv[2])
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text)
+chains = make_chains(input_text, number_of_words)
 
 # Produce random text
-random_text = make_text(chains)
+random_text = make_text(chains, number_of_words)
 
 print random_text
